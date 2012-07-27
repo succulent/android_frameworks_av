@@ -132,6 +132,53 @@ status_t ColorConverter::convert(
     return err;
 }
 
+#ifdef OMAP_ENHANCEMENT
+status_t ColorConverter::convertInterlacedBuffer(
+        const void *srcBits,
+        size_t srcWidth, size_t srcHeight,
+        size_t srcCropLeft, size_t srcCropTop,
+        size_t srcCropRight, size_t srcCropBottom,
+        OMX_TI_INTERLACETYPE buff_layout,
+        void *dstBits,
+        size_t dstWidth, size_t dstHeight,
+        size_t dstCropLeft, size_t dstCropTop,
+        size_t dstCropRight, size_t dstCropBottom) {
+    if (mDstFormat != OMX_COLOR_Format16bitRGB565) {
+        return ERROR_UNSUPPORTED;
+    }
+    if (buff_layout != OMX_InterlaceFrameTopFieldFirst &&
+        buff_layout != OMX_InterlaceFrameBottomFieldFirst) {
+        return ERROR_UNSUPPORTED;
+    }
+
+    BitmapParams src(
+            const_cast<void *>(srcBits),
+            srcWidth, srcHeight,
+            srcCropLeft, srcCropTop, srcCropRight, srcCropBottom);
+
+    BitmapParams dst(
+            dstBits,
+            dstWidth, dstHeight,
+            dstCropLeft, dstCropTop, dstCropRight, dstCropBottom);
+
+    status_t err;
+
+    switch (mSrcFormat) {
+        case OMX_TI_COLOR_FormatYUV420PackedSemiPlanar:
+            err = convertTIYUV420PackedSemiPlanarInterlaced(src, dst);
+            break;
+
+        default:
+        {
+            CHECK(!"Should not be here. Unknown color conversion.");
+            break;
+        }
+    }
+
+    return err;
+}
+#endif
+
 status_t ColorConverter::convertCbYCrY(
         const BitmapParams &src, const BitmapParams &dst) {
     // XXX Untested
