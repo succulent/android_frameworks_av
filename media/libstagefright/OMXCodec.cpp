@@ -4634,53 +4634,6 @@ void OMXCodec::initOutputFormat(const sp<MetaData> &inputFormat) {
                             video_def->nFrameHeight - 1);
                 }
 
-#ifdef OMAP_ENHANCEMENT
-                // Get Scaling Values and intialise mOutputFormat.
-                OMX_CONFIG_SCALEFACTORTYPE scale;
-                InitOMXParams(&scale);
-                scale.nPortIndex = kPortIndexOutput;
-                if (OK == mOMX->getConfig(
-                        mNode,OMX_IndexConfigCommonScale,
-                        &scale, sizeof(scale))) {
-                    int32_t left, top, right, bottom;
-                    CHECK(mOutputFormat->findRect(kKeyCropRect,
-                            &left, &top,
-                            &right, &bottom));
-
-                    // The scale is in 16.16 format.
-                    // scale 1.0 = 0x010000. When there is no
-                    // need to change the display, skip it.
-                    ALOGV("Get OMX_IndexConfigScale: 0x%lx/0x%lx",
-                            scale.xWidth, scale.xHeight);
-
-                    if (scale.xWidth != 0x010000) {
-                        mOutputFormat->setInt32(kKeyDisplayWidth,
-                                ((right - left +  1) * scale.xWidth)  >> 16);
-                        mOutputPortSettingsHaveChanged = true;
-                    }
-
-                    if (scale.xHeight != 0x010000) {
-                        mOutputFormat->setInt32(kKeyDisplayHeight,
-                                ((bottom  - top + 1) * scale.xHeight) >> 16);
-                        mOutputPortSettingsHaveChanged = true;
-                    }
-                }
-
-                OMX_TI_STREAMINTERLACEFORMAT buff_layout;
-                InitOMXParams(&buff_layout);
-                buff_layout.nPortIndex = kPortIndexOutput;
-                uint32_t layout = OMX_InterlaceFrameProgressive;
-                if (OK == mOMX->getConfig(
-                        mNode,
-                        static_cast<OMX_INDEXTYPE>(OMX_TI_IndexConfigStreamInterlaceFormats),
-                        &buff_layout, sizeof(buff_layout))) {
-                    layout = buff_layout.bInterlaceFormat ?
-                             buff_layout.nInterlaceFormats & OMX_InterlaceFmtMask :
-                             layout;
-                }
-                mOutputFormat->setInt32(kKeyBufferLayout, layout);
-#endif
-
                 if (mNativeWindow != NULL) {
                      initNativeWindowCrop();
                 }
