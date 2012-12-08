@@ -96,6 +96,11 @@ private:
     status_t convertTIYUV420PackedSemiPlanar(
             const BitmapParams &src, const BitmapParams &dst);
 
+#ifdef OMAP_ENHANCEMENT
+    status_t convertTIYUV420PackedSemiPlanarInterlaced(
+            const BitmapParams &src, const BitmapParams &dst);
+#endif
+
     ColorConverter(const ColorConverter &);
     ColorConverter &operator=(const ColorConverter &);
 };
