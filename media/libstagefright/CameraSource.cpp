@@ -31,7 +31,7 @@
 #include <utils/String8.h>
 #include <cutils/properties.h>
 
-#ifdef ENHANCED_DOMX
+#ifdef TI_ENHANCED_DOMX
 #include <OMX_TI_IVCommon.h>
 #endif
 

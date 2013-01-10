@@ -65,9 +65,8 @@ include $(BUILD_EXECUTABLE)
 
 include $(CLEAR_VARS)
 
-ifeq ($(OMAP_ENHANCEMENT),true)
-LOCAL_C_INCLUDES:= \
-    $(DOMX_PATH)/omx_core/inc
+ifneq ($(DOMX_PATH),)
+LOCAL_C_INCLUDES:= $(DOMX_PATH)/omx_core/inc
 endif
 
 LOCAL_SRC_FILES:= \

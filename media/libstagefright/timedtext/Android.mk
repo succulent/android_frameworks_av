@@ -14,9 +14,8 @@ LOCAL_C_INCLUDES:= \
         $(TOP)/frameworks/av/include/media/stagefright/timedtext \
         $(TOP)/frameworks/av/media/libstagefright
 
-ifeq ($(OMAP_ENHANCEMENT),true)
-LOCAL_C_INCLUDES += \
-    $(DOMX_PATH)/omx_core/inc
+ifneq ($(DOMX_PATH),)
+LOCAL_C_INCLUDES += $(DOMX_PATH)/omx_core/inc
 endif
 
 LOCAL_MODULE:= libstagefright_timedtext

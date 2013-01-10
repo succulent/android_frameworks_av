@@ -99,7 +99,7 @@ LOCAL_CFLAGS += -Wno-multichar \
     -DUSE_STAGEFRIGHT_READERS \
     -DUSE_STAGEFRIGHT_3GPP_READER
 
-ifdef ENHANCED_DOMX
+ifneq ($(DOMX_PATH),)
 LOCAL_C_INCLUDES += $(DOMX_PATH)/omx_core/inc
 else
 LOCAL_C_INCLUDES += $(TOP)/frameworks/native/include/media/openmax

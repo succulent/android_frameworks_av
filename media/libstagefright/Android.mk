@@ -70,6 +70,15 @@ LOCAL_C_INCLUDES:= \
         $(TOP)/external/tremolo \
         $(TOP)/external/openssl/include
 
+ifneq ($(DOMX_PATH),)
+LOCAL_C_INCLUDES += $(DOMX_PATH)/omx_core/inc
+ifeq ($(BOARD_USE_TI_ENHANCED_DOMX),true)
+LOCAL_CPPFLAGS += -DTI_ENHANCED_DOMX
+endif
+else
+LOCAL_C_INCLUDES += $(TOP)/frameworks/native/include/media/openmax
+endif
+
 ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
 LOCAL_SRC_FILES += \
         ExtendedWriter.cpp                \
@@ -87,13 +96,6 @@ LOCAL_SRC_FILES += \
         LPAPlayerALSA.cpp                 \
         TunnelPlayer.cpp
 endif
-endif
-
-
-ifdef ENHANCED_DOMX
-LOCAL_C_INCLUDES += $(DOMX_PATH)/omx_core/inc
-else
-LOCAL_C_INCLUDES += $(TOP)/frameworks/native/include/media/openmax
 endif
 
 LOCAL_SHARED_LIBRARIES := \
