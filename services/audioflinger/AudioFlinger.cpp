@@ -2107,7 +2107,8 @@ sp<AudioFlinger::PlaybackThread::Track> AudioFlinger::PlaybackThread::createTrac
         // to be at least 2 x the normal mixer frame count and cover audio hardware latency.
         // This is probably too conservative, but legacy application code may depend on it.
         // If you change this calculation, also review the start threshold which is related.
-        uint32_t latencyMs = mOutput->stream->get_latency(mOutput->stream);
+	// FIXME-HASH: UGLY HACK TO AVOID CRASHING ON InCall SCREEN
+        uint32_t latencyMs = 160; // mOutput->stream->get_latency(mOutput->stream);
         uint32_t minBufCount = latencyMs / ((1000 * mNormalFrameCount) / mSampleRate);
         if (minBufCount < 2) {
             minBufCount = 2;
