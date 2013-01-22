@@ -4,8 +4,8 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := \
 	ID3.cpp
 
-ifneq ($(DOMX_PATH),)
-LOCAL_C_INCLUDES += $(DOMX_PATH)/omx_core/inc
+ifneq ($(TI_CUSTOM_DOMX_PATH),)
+LOCAL_C_INCLUDES += $(TI_CUSTOM_DOMX_PATH)/omx_core/inc
 endif
 
 LOCAL_MODULE := libstagefright_id3

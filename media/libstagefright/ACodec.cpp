@@ -35,7 +35,7 @@
 #include <media/hardware/HardwareAPI.h>
 
 #include <OMX_Component.h>
-#ifdef TI_ENHANCED_DOMX
+#ifdef USE_TI_CUSTOM_DOMX
 #include <OMX_TI_IVCommon.h>
 #endif
 

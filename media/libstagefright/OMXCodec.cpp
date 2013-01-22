@@ -58,7 +58,7 @@
 #include <sec_format.h>
 #endif
 
-#ifdef TI_ENHANCED_DOMX
+#ifdef USE_TI_CUSTOM_DOMX
 #include <OMX_TI_Video.h>
 #include <OMX_TI_Index.h>
 #include <OMX_TI_IVCommon.h>

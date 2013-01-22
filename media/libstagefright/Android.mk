@@ -70,11 +70,9 @@ LOCAL_C_INCLUDES:= \
         $(TOP)/external/tremolo \
         $(TOP)/external/openssl/include
 
-ifneq ($(DOMX_PATH),)
-LOCAL_C_INCLUDES += $(DOMX_PATH)/omx_core/inc
-ifeq ($(BOARD_USE_TI_ENHANCED_DOMX),true)
-LOCAL_CPPFLAGS += -DTI_ENHANCED_DOMX
-endif
+ifneq ($(TI_CUSTOM_DOMX_PATH),)
+LOCAL_C_INCLUDES += $(TI_CUSTOM_DOMX_PATH)/omx_core/inc
+LOCAL_CPPFLAGS += -DUSE_TI_CUSTOM_DOMX
 else
 LOCAL_C_INCLUDES += $(TOP)/frameworks/native/include/media/openmax
 endif
