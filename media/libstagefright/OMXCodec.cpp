@@ -1336,7 +1336,7 @@ status_t OMXCodec::setupAVCEncoderParameters(const sp<MetaData>& meta) {
     h264type.eLevel = static_cast<OMX_VIDEO_AVCLEVELTYPE>(profileLevel.mLevel);
 
     // XXX
-#ifdef OMAP_ENHANCEMENT
+#ifdef USE_TI_DUCATI_H264_PROFILE
     if ((strncmp(mComponentName, "OMX.TI.DUCATI1", 14) != 0)
             && (h264type.eProfile != OMX_VIDEO_AVCProfileBaseline)) {
 #else
